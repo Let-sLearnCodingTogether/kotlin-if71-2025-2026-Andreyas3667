@@ -1,0 +1,72 @@
+// 1. Membuat Class Mahasiswa
+class Mahasiswa(
+    // 2. Property (nim dan nama)
+    val nim: String, 
+    val nama: String
+) {
+    
+    // 3. Property daftarNilai (MutableList agar bisa diubah/ditambah)
+    private val daftarNilai: MutableList<Int> = mutableListOf()
+
+    // 4. Method tambahNilai
+    fun tambahNilai(nilai: Int) {
+        daftarNilai.add(nilai)
+        println("Nilai $nilai ditambahkan untuk $nama")
+    }
+
+    // 5. Method getRataRata (Menggunakan Nullability dan Elvis Operator)
+    fun getRataRata(): Double {
+        // .average() mengembalikan Double? (nullable)
+        // Jika daftarNilai kosong, .average() akan mengembalikan null
+        // Kita gunakan Elvis Operator (?:) untuk memberi nilai default 0.0 jika null
+        return daftarNilai.average() ?: 0.0
+    }
+    
+    fun perkenalkanDiri() {
+        println("Halo, saya $nama ($nim)")
+    }
+}
+
+
+fun main() {
+    // 6. Buat Map untuk menyimpan data
+    // Key = NIM (String), Value = Objek Mahasiswa
+    val dataBankNilai: MutableMap<String, Mahasiswa> = mutableMapOf()
+
+    // 7. Buat 2 objek Mahasiswa
+    val mhs1 = Mahasiswa("112233", "Budi Gunawan")
+    val mhs2 = Mahasiswa("112244", "Cinta Lestari")
+    
+    // Tambahkan nilai untuk mhs1
+    mhs1.tambahNilai(80)
+    mhs1.tambahNilai(90)
+    mhs1.tambahNilai(100)
+    
+    // Tambahkan nilai untuk mhs2
+    mhs2.tambahNilai(85)
+    mhs2.tambahNilai(75)
+
+    // Masukkan mahasiswa ke Map
+    dataBankNilai[mhs1.nim] = mhs1
+    dataBankNilai[mhs2.nim] = mhs2
+    
+    println("\n--- Data Bank Nilai ---")
+    
+    // 8. Cetak nama dan rata-rata dari NIM "112233"
+    
+    // Gunakan Safe Call (?.) untuk mengambil data dari Map,
+    // karena bisa saja NIM yang dicari tidak ada (null)
+    val nimCari = "112233"
+    val mahasiswaDicari: Mahasiswa? = dataBankNilai[nimCari]
+    
+    if (mahasiswaDicari != null) {
+        println("Data ditemukan untuk NIM: $nimCari")
+        println("Nama: ${mahasiswaDicari.nama}")
+        println("Rata-rata Nilai: ${mahasiswaDicari.getRataRata()}")
+    } else {
+        println("Data untuk NIM $nimCari tidak ditemukan.")
+    }
+    
+    // Contoh cek mahasiswa lain
+    println("Rata-rata ${dataBankNilai["112244"]?.nama}: ${dataBankNilai["112244"]?.getRataRata()}")
+}

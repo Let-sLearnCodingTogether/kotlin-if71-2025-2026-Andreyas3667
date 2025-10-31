@@ -1,0 +1,123 @@
+// 3. CLASS, PROPERTY, dan METHOD
+// Kita buat class untuk Musuh
+class Enemy(val name: String, var health: Int) {
+    fun displayStatus() {
+        println("Musuh: $name | Health: $health")
+    }
+}
+
+// Kita buat class utama untuk Petualang
+class Player(val name: String) {
+    // PROPERTY
+    var health: Int = 100
+    // PROPERTY (menggunakan LIST)
+    // Inventaris untuk menyimpan item (MutableList agar bisa ditambah/dihapus)
+    val inventory: MutableList<String> = mutableListOf("Pedang Tumpul", "Obat P3K")
+    
+    // METHOD
+    fun attack(enemy: Enemy) {
+        val damage = 25
+        println("$name menyerang ${enemy.name} sebesar $damage damage!")
+        enemy.health -= damage
+        
+        if (enemy.health <= 0) {
+            println("${enemy.name} telah dikalahkan!")
+        } else {
+            enemy.displayStatus()
+        }
+    }
+
+    // METHOD (menggunakan LIST)
+    fun useItem(itemName: String) {
+        if (inventory.contains(itemName)) {
+            if (itemName == "Obat P3K") {
+                health += 30
+                println("$name menggunakan $itemName. Health pulih menjadi $health.")
+                inventory.remove(itemName)
+            } else {
+                println("$name melihat $itemName... tapi tidak tahu cara menggunakannya.")
+            }
+        } else {
+            println("$name mencari $itemName di tas, tapi tidak punya.")
+        }
+    }
+    
+    // METHOD
+    fun showStatus() {
+        println("--- Status $name ---")
+        println("Health: $health")
+        println("Inventory: $inventory")
+        println("---------------------")
+    }
+}
+
+fun main() {
+    // 2. MAP, LIST, dan SET
+    
+    // Kita buat MAP untuk 'loot table'
+    // Key = Nama Musuh (String)
+    // Value = Item yang dijatuhkan (String?). Dibuat nullable (?)
+    // karena ada musuh yang mungkin tidak menjatuhkan apa-apa.
+    val lootTable: Map<String, String?> = mapOf(
+        "Goblin" to "Koin Emas",
+        "Slime" to "Gelatin",
+        "Tikus Got" to null // Tikus Got tidak menjatuhkan apa-apa (null)
+    )
+
+    // Kita buat SET untuk mencatat 'Monster Unik' yang pernah ditemui
+    val uniqueMonstersEncountered: MutableSet<String> = mutableSetOf()
+
+    // --- Petualangan Dimulai ---
+    
+    // Buat Objek Player
+    val hero = Player("Aldo")
+    hero.showStatus()
+
+    // Pertemuan 1: Goblin
+    val goblin = Enemy("Goblin", 50)
+    uniqueMonstersEncountered.add(goblin.name) // Tambah ke Set
+    
+    println("\nPetualang ${hero.name} bertemu ${goblin.name}!")
+    hero.attack(goblin)
+    hero.attack(goblin) // Goblin kalah
+
+    // 1. NULLABILITY dan ELVIS OPERATOR
+    
+    // Cek loot dari Goblin (Map akan mengembalikan "Koin Emas")
+    var lootDropped: String? = lootTable[goblin.name]
+    
+    // Gunakan ELVIS OPERATOR (?:)
+    // Jika lootDropped null, ganti dengan "Tidak ada".
+    var itemDidapat = lootDropped ?: "Tidak ada"
+    
+    println("${goblin.name} menjatuhkan: $itemDidapat") // Output: Koin Emas
+    if (lootDropped != null) {
+        hero.inventory.add(lootDropped) // Tambah ke List inventaris
+    }
+
+    hero.showStatus()
+
+    // Pertemuan 2: Tikus Got
+    val rat = Enemy("Tikus Got", 20)
+    uniqueMonstersEncountered.add(rat.name) // Tambah ke Set
+    
+    println("\n${hero.name} diserang ${rat.name}!")
+    hero.health -= 5 // Kena damage
+    hero.attack(rat) // Tikus kalah
+
+    // Cek loot dari Tikus Got (Map akan mengembalikan null)
+    lootDropped = lootTable[rat.name] // lootDropped sekarang bernilai null
+    
+    // Gunakan ELVIS OPERATOR (?:) lagi
+    itemDidapat = lootDropped ?: "Tidak ada"
+    
+    println("${rat.name} menjatuhkan: $itemDidapat") // Output: Tidak ada
+    
+    // Cek status dan pakai item
+    hero.showStatus()
+    hero.useItem("Obat P3K") // Memakai item dari List
+    
+    // Cek monster unik yang ditemui (Set)
+    uniqueMonstersEncountered.add("Goblin") // Coba tambah lagi, tidak akan duplikat
+    println("\nMonster Unik Ditemui: $uniqueMonstersEncountered")
+}

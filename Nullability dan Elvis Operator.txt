@@ -1,0 +1,28 @@
+fun main() {
+    // 1. VARIABEL NULLABLE
+    // 'namaLengkap' tidak bisa null
+    var namaLengkap: String = "Andi"
+    // 'namaPanggilan' bisa null, ditandai dengan '?'
+    var namaPanggilan: String? = null
+
+    // 2. SAFE CALL (?.)
+    // Ini akan print "4" karena 'namaLengkap' ada isinya
+    println(namaLengkap.length) 
+    
+    // Ini akan print "null" karena 'namaPanggilan' sedang null
+    // Program tidak crash berkat safe call '?.'
+    println(namaPanggilan?.length) 
+
+    // 3. ELVIS OPERATOR (?:)
+    // Kita isi 'namaPanggilan'
+    namaPanggilan = "Andi" 
+    
+    // Gunakan 'length' jika tidak null, atau gunakan nilai default 0 jika null
+    val panjangNama: Int = namaPanggilan?.length ?: 0
+    println("Panjang nama panggilan: $panjangNama") // Output: 20
+    
+    // Jika kita set null lagi
+    namaPanggilan = null
+    val panjangNamaDefault: Int = namaPanggilan?.length ?: 0
+    println("Panjang nama panggilan (default): $panjangNamaDefault") // Output: 0
+}
