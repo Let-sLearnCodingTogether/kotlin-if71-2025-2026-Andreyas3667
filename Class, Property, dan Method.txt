@@ -1,0 +1,45 @@
+// Mendefinisikan CLASS 'Mobil'
+class Mobil {
+    // 1. PROPERTY (Data/Variabel milik class)
+    var merk: String = "Toyota"
+    var tahun: Int = 2020
+    private var sedangJalan: Boolean = false // private: hanya bisa diakses dari dalam class
+
+    // 2. METHOD (Fungsi milik class)
+    fun hidupkanMesin() {
+        println("Mesin mobil $merk dihidupkan!")
+    }
+
+    fun jalankan() {
+        sedangJalan = true
+        println("Mobil $merk tahun $tahun sedang berjalan...")
+    }
+    
+    fun berhenti() {
+        sedangJalan = false
+        println("Mobil $merk berhenti.")
+    }
+    
+    fun cekStatus() {
+        println("Status jalan: $sedangJalan")
+    }
+}
+
+// Fungsi main untuk menjalankan program
+fun main() {
+    // Membuat OBJEK (instance) dari class Mobil
+    val mobilSaya = Mobil()
+    
+    // Mengakses PROPERTY
+    mobilSaya.merk = "Honda" // Mengubah nilai property
+    mobilSaya.tahun = 2022
+    
+    println("Merk mobil: ${mobilSaya.merk}")
+    
+    // Memanggil METHOD
+    mobilSaya.hidupkanMesin()
+    mobilSaya.jalankan()
+    mobilSaya.cekStatus()
+    mobilSaya.berhenti()
+    mobilSaya.cekStatus()
+}

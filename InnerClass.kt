@@ -1,0 +1,17 @@
+class Gedung2(val nama : String) {
+    private val alamat : String = "Jln. Sudirman"
+
+    inner class RuanganRapat {
+        fun mulaiRapat() {
+            println("Rapat di Mulai")
+            println("Rapat di gedung $nama di alamat $alamat")
+        }
+    }
+}
+
+fun main() {
+    val gedungA = Gedung2(nama = "Universitas MDP")
+    val ruanganRapat = gedungA.RuanganRapat()
+
+    ruanganRapat.mulaiRapat()
+}

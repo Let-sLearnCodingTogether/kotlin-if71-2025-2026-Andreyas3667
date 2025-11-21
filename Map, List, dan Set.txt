@@ -1,0 +1,33 @@
+fun main() {
+    // 1. LIST (Terurut, Boleh Duplikat)
+    // Membuat list nilai (List<Int>)
+    val daftarNilai: List<Int> = listOf(80, 95, 70, 80, 90)
+    
+    println("--- LIST ---")
+    println("Isi List: $daftarNilai")
+    println("Nilai kedua (index 1): ${daftarNilai[1]}") // Akses berdasarkan index
+    println("Nilai 80 ada: ${80 in daftarNilai}") // true
+
+    // 2. SET (Unik, Tidak Terurut)
+    // Membuat set mata kuliah (Set<String>)
+    // "Kotlin" yang duplikat akan otomatis hilang
+    val mataKuliah: Set<String> = setOf("Kotlin", "Java", "Web", "Kotlin")
+
+    println("\n--- SET ---")
+    println("Isi Set: $mataKuliah")
+    println("Jumlah Matkul: ${mataKuliah.size}") // Output: 3
+    println("Ada 'Java': ${"Java" in mataKuliah}") // true
+
+    // 3. MAP (Key-Value, Key Harus Unik)
+    // Membuat map data mahasiswa (Map<String, String>)
+    val dataMahasiswa: Map<String, String> = mapOf(
+        "nim" to "12345",
+        "nama" to "Budi Santoso",
+        "jurusan" to "Teknik Informatika"
+    )
+
+    println("\n--- MAP ---")
+    println("Isi Map: $dataMahasiswa")
+    println("Nama Mahasiswa: ${dataMahasiswa["nama"]}") // Akses berdasarkan key
+    println("Prodi: ${dataMahasiswa["jurusan"]}")
+}
