@@ -1,0 +1,16 @@
+import kotlinx.coroutines.*
+
+fun main() = runBlocking { // Memulai coroutine scope utama
+    println("Aplikasi dimulai...")
+
+    // Meluncurkan coroutine baru (Background process)
+    launch {
+        delay(1000L) // Simulasi proses berat selama 1 detik (non-blocking)
+        println("Dunia! (Ini dari Coroutine)")
+    }
+
+    // Kode ini jalan duluan karena 'launch' di atas tidak memblokir thread
+    print("Halo, ")
+    
+    // runBlocking akan menunggu semua coroutine di dalamnya selesai sebelum program berhenti
+}

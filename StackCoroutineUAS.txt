@@ -1,0 +1,29 @@
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+    val downloadStack = mutableListOf<String>()
+
+    println("Mulai download data...")
+
+    // Coroutine: Melakukan pekerjaan di background
+    val job = launch {
+        val dataDariServer = listOf("File 1", "File 2", "File 3")
+        
+        for (file in dataDariServer) {
+            delay(500L) // Simulasi loading 0.5 detik per file
+            
+            // Push ke Stack
+            downloadStack.add(file) 
+            println("Berhasil mengunduh dan Push: $file")
+        }
+    }
+
+    println("Menunggu proses download selesai...")
+    job.join() // Menunggu coroutine 'job' selesai sepenuhnya
+
+    println("\n--- Proses Selesai ---")
+    println("Isi Stack sekarang: $downloadStack")
+    
+    // Pop data terakhir (LIFO - Last In First Out)
+    println("Pop data terakhir: ${downloadStack.removeAt(downloadStack.size - 1)}")
+}

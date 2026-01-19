@@ -1,0 +1,33 @@
+val stackData = mutableListOf<String>("Buku A", "Buku B", "Buku C")
+
+// --- FUNGSI PEEK (Mengintip data teratas/terakhir) ---
+fun peek(): String? {
+    if (stackData.isEmpty()) {
+        println("Stack kosong, tidak bisa mengintip.")
+        return null
+    }
+    // Mengambil elemen di indeks terakhir
+    return stackData[stackData.size - 1] 
+}
+
+// --- FUNGSI POP (Mengambil & menghapus data teratas/terakhir) ---
+fun pop(): String? {
+    if (stackData.isEmpty()) {
+        println("Stack kosong, tidak bisa pop.")
+        return null
+    }
+    // Hapus elemen di indeks terakhir dan kembalikan nilainya
+    return stackData.removeAt(stackData.size - 1)
+}
+
+fun main() {
+    println("Posisi Awal: $stackData")
+    
+    val intip = peek()
+    println("Sedang diintip (Peek): $intip") // Output: Buku C
+    
+    val ambil = pop()
+    println("Data diambil (Pop): $ambil")   // Output: Buku C
+    
+    println("Sisa Stack: $stackData")       // Output: [Buku A, Buku B]
+}

@@ -1,0 +1,48 @@
+// Membuat Class Stack Sederhana
+class Stack<T> {
+    private val items = mutableListOf<T>()
+
+    // Push: Menambahkan item ke paling atas
+    fun push(item: T) {
+        items.add(item)
+        println("Push: $item")
+    }
+
+    // Pop: Mengambil item dari paling atas dan menghapusnya
+    fun pop(): T? {
+        if (items.isEmpty()) {
+            return null
+        }
+        val item = items.removeAt(items.size - 1)
+        println("Pop: $item")
+        return item
+    }
+
+    // Peek: Mengintip item paling atas tanpa menghapusnya
+    fun peek(): T? {
+        return items.lastOrNull()
+    }
+
+    // Cek apakah stack kosong
+    fun isEmpty(): Boolean = items.isEmpty()
+}
+
+fun main() {
+    val tumpukanBuku = Stack<String>()
+
+    // Menambah data (Masuk urutan: A -> B -> C)
+    tumpukanBuku.push("Buku A")
+    tumpukanBuku.push("Buku B")
+    tumpukanBuku.push("Buku C")
+
+    println("---")
+
+    // Mengintip data paling atas
+    println("Intip data teratas: ${tumpukanBuku.peek()}") // Output: Buku C
+
+    println("---")
+
+    // Mengambil data (Keluar urutan: C -> B -> A)
+    tumpukanBuku.pop() // Keluar Buku C
+    tumpukanBuku.pop() // Keluar Buku B
+}
